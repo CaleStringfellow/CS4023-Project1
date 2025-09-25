@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(my_project)
+project(cs4023_project1)
 
 find_package(catkin REQUIRED COMPONENTS
   rospy
