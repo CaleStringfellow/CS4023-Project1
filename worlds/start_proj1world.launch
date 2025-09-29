@@ -84,6 +84,6 @@
   </node>
 
   <!-- From turtlebot_rviz_launchers/launch/view_navigation.launch-->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cs4023_project1)/launch/navigation.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cs4023_project1)/rviz/navigation.rviz"/>
 </launch>
 
