@@ -12,6 +12,11 @@
   <!-- Build and run dependencies -->
   <depend>rospy</depend>
   <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>kobuki_msgs</depend>
+
 
   <!-- If you add other message types, list them here -->
   <!-- <depend>geometry_msgs</depend> -->

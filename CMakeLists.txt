@@ -4,7 +4,12 @@ project(cs4023_project1)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  geometry_msgs
+  sensor_msgs
+  nav_msgs
+  kobuki_msgs
 )
+
 
 catkin_package()
 

@@ -83,6 +83,8 @@
     <remap from="scan" to="$(arg scan_topic)"/>
   </node>
 
+  <node pkg="cs4023_project1" type="my_node.py" name="turtlebot_controller" output="screen"/>
+
   <!-- From turtlebot_rviz_launchers/launch/view_navigation.launch-->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cs4023_project1)/rviz/navigation.rviz"/>
 </launch>
