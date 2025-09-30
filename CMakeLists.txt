@@ -20,5 +20,6 @@ include_directories(
 # Install Python scripts
 catkin_install_python(PROGRAMS
   scripts/my_node.py
+  scripts/teleop_keyboard.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
