@@ -16,6 +16,8 @@ class TurtlebotController:
         # Subscribers
         rospy.Subscriber('/scan', LaserScan, self.laser_callback)
         rospy.Subscriber('/mobile_base/events/bumper', BumperEvent, self.bumper_callback)
+        # Teleop commands that should override autonomous behaviors (unless bumper pressed)
+        rospy.Subscriber('/teleop_cmd', Twist, self.teleop_callback)
 
         # State variables
         self.bumped = False
@@ -23,11 +25,17 @@ class TurtlebotController:
         self.distance_traveled = 0.0
         self.last_turn_time = rospy.Time.now()
 
+    # Teleop override state
+    self.teleop_cmd = None
+    self.teleop_time = rospy.Time(0)
+
         # Parameters
         self.forward_speed = 0.2  # m/s
         self.turn_speed = 0.5     # rad/s
         self.turn_interval = 1.0  # meters
         self.last_pose_time = rospy.Time.now()
+    # How long to consider the most recent teleop message "active" (seconds)
+    self.teleop_timeout = rospy.get_param('~teleop_timeout', 1.0)
 
         rospy.loginfo("Turtlebot controller initialized.")
 
@@ -43,14 +51,25 @@ class TurtlebotController:
         rate = rospy.Rate(10)  # 10 Hz
         while not rospy.is_shutdown():
             twist = Twist()
+            now = rospy.Time.now()
 
-            # 1. Halt if bumper pressed
+            # 0. Bumper halt always wins
             if self.bumped:
                 twist.linear.x = 0.0
                 twist.angular.z = 0.0
+                self.cmd_pub.publish(twist)
+                rate.sleep()
+                continue
+
+            # 1. Teleop override (if a recent teleop command exists)
+            if self.teleop_cmd is not None and (now - self.teleop_time).to_sec() <= float(self.teleop_timeout):
+                # Use the latest teleop command directly
+                self.cmd_pub.publish(self.teleop_cmd)
+                rate.sleep()
+                continue
 
             # 2. Escape symmetric obstacles
-            elif self.detect_symmetric_obstacle():
+            if self.detect_symmetric_obstacle():
                 twist.angular.z = self.escape_turn()
 
             # 3. Avoid asymmetric obstacles
@@ -110,6 +129,13 @@ class TurtlebotController:
             self.last_turn_time = now
             return True
         return False
+
+    # -------- Teleop callback --------
+    def teleop_callback(self, msg):
+        """Receive teleop Twist messages. These will override autonomous control
+        for a short timeout (configured by ~teleop_timeout)."""
+        self.teleop_cmd = msg
+        self.teleop_time = rospy.Time.now()
 
 
 if __name__ == '__main__':
