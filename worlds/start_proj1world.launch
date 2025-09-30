@@ -86,7 +86,7 @@
   <node pkg="cs4023_project1" type="my_node.py" name="turtlebot_controller" output="screen"/>
 
   <!-- Teleop keyboard controller launcher-->
-  <node pkg="cs4023_project1" type="teleop_keyboard.py" name="teleop_keyboard" output="screen" launch-prefix="xterm -e"/>
+  <!--node pkg="cs4023_project1" type="teleop_keyboard.py" name="teleop_keyboard" output="screen" launch-prefix="xterm -e"/-->
 
   <!-- From turtlebot_rviz_launchers/launch/view_navigation.launch-->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cs4023_project1)/rviz/navigation.rviz"/>
