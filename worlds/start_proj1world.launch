@@ -1,4 +1,4 @@
-<!-- Modified version of turtlebot_world.launch -->
+<!-- Modified version of turtlebot_world.launch provided by Professor Hougen -->
 <launch>
   <!-- Put name of world file here -->
   <arg name="world_file"  default="$(find cs4023_project1)/worlds/Proj1World.world"/>
@@ -36,12 +36,6 @@
     <remap from="image" to="/camera/depth/image_raw"/>
     <remap from="scan" to="/scan"/>
   </node>
-
-  <!-- Added stuff starts here -->
-  <!--<node pkg="robotics-project-1" type="prioritizer.py" name="prioritizer" output="screen"/>
-  <node pkg="robotics-project-1" type="turtlebot_teleop_key.py" name="teleop" output="screen"/>
-  <node pkg="robotics-project-1" type="drive_control.py" name="drive_control" output="screen"/>
-  <node pkg="robotics-project-1" type="obstacle_detection.py" name="obstacle_detection" output="screen"/> -->
 
   <!-- From gmapping_demo.launch -->
   <arg name="scan_topic" default="scan"/>
