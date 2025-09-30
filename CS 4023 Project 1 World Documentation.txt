@@ -1,0 +1,9 @@
+﻿The world file, titled Proj1World.world, was created via the built-in gazebo building editor. The initial make of this was sloppily made, but got refined over time. To create it in an equal manner, the exact specifications of the size of each wall needed to be figured out prior to the actual construction in the building editor. After that was created, it took some time to figure out how to actually implement the world file into our launch file. This was eventually resolved, and a combined world file that also included the turtlebot was formed. Later on, it was discovered that the robot would spawn inside the wall and immediately trigger a halt, as that is the immediate first command it senses. This was simply resolved by centering the room model so that the initial response was not an immediate halt. 
+Due to how our architecture is set up, no extra steps are required to launch or run the world nor the turtlebot in it, as that is included in the overarching launch file. 
+However, if one does wish to view the world file separately, they may do so by entering:
+gazebo src/CS4023-Project1/worlds/Proj1World.world
+Into the command line after doing the obligatory:
+cd ~/catkin_ws
+source devel/setup.bash
+catkin_make
+To make sure everything will open smoothly.
